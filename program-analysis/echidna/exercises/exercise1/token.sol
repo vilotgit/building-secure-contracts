@@ -37,6 +37,9 @@ contract Token is Pausable{
     mapping(address => uint) public balances;
 
     function transfer(address to, uint value) ifNotPaused public{
+        require(balances[msg.sender] >= value);
+        require(value <= 10000);
+        require(balances[to] <= 10000 - value);
         balances[msg.sender] -= value;
         balances[to] += value;
     }
